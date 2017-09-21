@@ -5,9 +5,6 @@ module.exports = function (req, res) {
 	}
 	req.list.model.findById(req.params.id, function (err, item) {
 
-		console.log(req.body);
-		console.log(item.id != req.user.id);
-		console.log(req.body.isAdmin == 'true');
 		if (req.list.admin && !req.user.isAdmin && (item.id != req.user.id || req.body.isAdmin == 'true')) {
 			return res.apiError(403, 'Access denied');
 		}
