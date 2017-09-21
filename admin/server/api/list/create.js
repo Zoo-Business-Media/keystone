@@ -4,6 +4,10 @@ module.exports = function (req, res) {
 		return res.apiError(403, 'invalid csrf');
 	}
 
+	if (req.list.admin && !req.user.isAdmin) {
+		return res.apiError(403, 'Access denied');
+	}
+
 	var item = new req.list.model();
 	req.list.updateItem(item, req.body, {
 		files: req.files,

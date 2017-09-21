@@ -1,6 +1,11 @@
 var async = require('async');
 
 module.exports = function (req, res) {
+
+	if (req.list.admin && !req.user.isAdmin) {
+		return res.apiError(403, 'Access denied');
+	}
+	
 	var keystone = req.keystone;
 	if (!keystone.security.csrf.validate(req)) {
 		console.log('Refusing to delete ' + req.list.key + ' items; CSRF failure');

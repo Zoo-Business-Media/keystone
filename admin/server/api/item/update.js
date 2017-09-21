@@ -4,6 +4,11 @@ module.exports = function (req, res) {
 		return res.apiError(403, 'invalid csrf');
 	}
 	req.list.model.findById(req.params.id, function (err, item) {
+
+		if (req.list.admin && !req.user.isAdmin && (!(item.id == req.user.id))) {
+			return res.apiError(403, 'Access denied');
+		}
+
 		if (err) return res.status(500).json({ error: 'database error', detail: err });
 		if (!item) return res.status(404).json({ error: 'not found', id: req.params.id });
 		req.list.updateItem(item, req.body, { files: req.files, user: req.user }, function (err) {
