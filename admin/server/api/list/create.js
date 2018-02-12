@@ -4,7 +4,7 @@ module.exports = function (req, res) {
 		return res.apiError(403, 'invalid csrf');
 	}
 
-	if (req.list.admin && !req.user.isAdmin) {
+	if (!req.list.canCreate(req.user)) {
 		return res.apiError(403, 'Access denied');
 	}
 

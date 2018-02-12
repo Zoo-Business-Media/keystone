@@ -23,6 +23,7 @@ module.exports = function (req, res) {
 		try { filters = JSON.parse(req.query.filters); }
 		catch (e) { } // eslint-disable-line no-empty
 	}
+	assign(where, req.list.addQuery(req.user))
 	if (typeof filters === 'object') {
 		assign(where, req.list.addFiltersToQuery(filters));
 	}

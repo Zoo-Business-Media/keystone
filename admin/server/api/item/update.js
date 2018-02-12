@@ -4,7 +4,9 @@ module.exports = function (req, res) {
 		return res.apiError(403, 'invalid csrf');
 	}
 	req.list.model.findById(req.params.id, function (err, item) {
-
+		if (!req.list.access(req.user, item)) {
+			return res.apiError(403, 'Access denied');
+		}
 		if (req.list.admin && !req.user.isAdmin && (item.id != req.user.id || req.body.isAdmin == 'true')) {
 			return res.apiError(403, 'Access denied');
 		}

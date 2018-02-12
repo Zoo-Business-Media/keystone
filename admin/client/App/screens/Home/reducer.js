@@ -21,6 +21,7 @@ function home (state = initialState, action) {
 			return assign({}, state, {
 				loading: false,
 				counts: action.counts,
+				nav: action.nav,
 				error: null,
 			});
 		case COUNTS_LOADING_ERROR:
