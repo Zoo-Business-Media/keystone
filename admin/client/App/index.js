@@ -18,6 +18,10 @@ import List from './screens/List';
 
 import store from './store';
 
+import {
+	loadCounts,
+} from './screens/Home/actions';
+
 // Sync the browser history to the Redux store
 const history = syncHistoryWithStore(browserHistory, store);
 
@@ -37,3 +41,5 @@ ReactDOM.render(
 	</Provider>,
 	document.getElementById('react-root')
 );
+
+store.dispatch(loadCounts());

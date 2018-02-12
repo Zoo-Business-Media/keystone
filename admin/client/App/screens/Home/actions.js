@@ -24,7 +24,7 @@ export function loadCounts () {
 			try {
 				body = JSON.parse(body);
 				if (body.counts) {
-					dispatch(countsLoaded(body.counts));
+					dispatch(countsLoaded(body.counts, body.nav));
 				}
 			} catch (e) {
 				console.log('Error parsing results json:', e, body);
@@ -40,10 +40,11 @@ export function loadCounts () {
  *
  * @param  {Object} counts The counts object as returned by the API
  */
-export function countsLoaded (counts) {
+export function countsLoaded (counts, nav) {
 	return {
 		type: COUNTS_LOADING_SUCCESS,
 		counts,
+		nav
 	};
 }
 

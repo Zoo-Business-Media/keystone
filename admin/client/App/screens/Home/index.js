@@ -35,8 +35,43 @@ var HomeView = React.createClass({
 		}
 		return null;
 	},
-	render () {
+	getNav() {
 		const spinner = this.getSpinner();
+		if (this.props.nav) {
+			return this.props.nav.flat ?
+				(<Lists
+					counts={this.props.counts}
+					lists={Keystone.lists}
+					spinner={spinner} />)
+				:
+				(<div>
+					{/* Render nav with sections */}
+					{this.props.nav.sections.map((navSection) => {
+						return (
+							<Section key={navSection.key} id={navSection.key} label={navSection.label}>
+								<Lists
+									counts={this.props.counts}
+									lists={navSection.lists}
+									spinner={spinner}
+								/>
+							</Section>
+						);
+					})}
+					{/* Render orphaned lists */}
+					{Keystone.orphanedLists.length ? (
+						<Section label="Other" icon="octicon-database">
+							<Lists
+								counts={this.props.counts}
+								lists={Keystone.orphanedLists}
+								spinner={spinner}
+							/>
+						</Section>
+					) : null}
+				</div>);
+		}
+		return null;
+	},
+	render () {
 		return (
 			<Container data-screen-id="home">
 				<div className="dashboard-header">
@@ -51,38 +86,7 @@ var HomeView = React.createClass({
 						/>
 					)}
 					{/* Render flat nav */}
-					{Keystone.nav.flat ? (
-						<Lists
-							counts={this.props.counts}
-							lists={Keystone.lists}
-							spinner={spinner}
-						/>
-					) : (
-						<div>
-							{/* Render nav with sections */}
-							{Keystone.nav.sections.map((navSection) => {
-								return (
-									<Section key={navSection.key} id={navSection.key} label={navSection.label}>
-										<Lists
-											counts={this.props.counts}
-											lists={navSection.lists}
-											spinner={spinner}
-										/>
-									</Section>
-								);
-							})}
-							{/* Render orphaned lists */}
-							{Keystone.orphanedLists.length ? (
-								<Section label="Other" icon="octicon-database">
-									<Lists
-										counts={this.props.counts}
-										lists={Keystone.orphanedLists}
-										spinner={spinner}
-									/>
-								</Section>
-							) : null}
-						</div>
-					)}
+					{this.getNav()}
 				</div>
 			</Container>
 		);
@@ -93,8 +97,11 @@ export {
 	HomeView,
 };
 
-export default connect((state) => ({
-	counts: state.home.counts,
-	loading: state.home.loading,
-	error: state.home.error,
-}))(HomeView);
+export default connect((state) => {
+	return {
+		counts: state.home.counts,
+		nav: state.home.nav,
+		loading: state.home.loading,
+		error: state.home.error,
+	}
+})(HomeView);
