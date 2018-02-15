@@ -1,4 +1,5 @@
 var async = require('async');
+var fetch = require('node-fetch');
 
 module.exports = function (req, res) {
 
@@ -43,6 +44,10 @@ module.exports = function (req, res) {
 			return res.apiError('database error', err);
 		}
 		async.forEachLimit(results, 10, function (item, next) {
+			if (req.list.deleteCallbackUrl) {
+				var url = req.list.deleteCallbackUrl + "?type=" + req.list.path + "&id=" + item._id;
+				fetch(url);	
+			}
 			item.remove(function (err) {
 				if (err) return next(err);
 				deletedCount++;
