@@ -5,7 +5,7 @@ module.exports = function (req, res) {
 	var counts = {};
 	var nav = JSON.parse(JSON.stringify(keystone.nav));
 	async.each(keystone.lists, function (list, next) {
-		if (!list.canView(req.user)) {
+		if (!list.canViewIndex(req.user)) {
 			for (var i=0; i<nav.sections.length; i++) {
 				let listArray = nav.sections[i].lists;
 				for (var j=0; j<listArray.length; j++) {

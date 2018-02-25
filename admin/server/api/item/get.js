@@ -22,7 +22,7 @@ module.exports = function (req, res) {
 		if (err) return res.status(500).json({ err: 'database error', detail: err });
 		if (!item) return res.status(404).json({ err: 'not found', id: req.params.id });
 
-		if (!req.list.access(req.user, item)) {
+		if (!req.list.canViewItem(req.user, item)) {
 			return res.apiError(403, 'Access denied');
 		}
 
