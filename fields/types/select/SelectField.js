@@ -50,6 +50,8 @@ module.exports = Field.create({
 			? String(val)
 			: val;
 
+		console.log(options);
+
 		return (
 			<div>
 				{/* This input element fools Safari's autocorrect in certain situations that completely break react-select */}
