@@ -46,6 +46,12 @@ module.exports = function (req, res) {
 		async.forEachLimit(results, 10, function (item, next) {
 			if (req.list.deleteCallbackUrl) {
 				var url = req.list.deleteCallbackUrl + "?type=" + req.list.path + "&id=" + item._id;
+				for (let property in item._doc) {
+					if (item._doc.hasOwnProperty(property)) {
+						url += `&${property}=${encodeURIComponent(item._doc[property])}`
+					}
+				}
+				console.log(item)
 				fetch(url);	
 			}
 			item.remove(function (err) {
