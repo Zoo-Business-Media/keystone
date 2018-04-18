@@ -38,6 +38,7 @@ const CreateForm = React.createClass({
 		return {
 			values: values,
 			alerts: {},
+			canCreate: true
 		};
 	},
 	componentDidMount () {
@@ -106,7 +107,13 @@ const CreateForm = React.createClass({
 					},
 				});
 			}
+			this.setState({
+				canCreate: true
+			})
 		});
+		this.setState({
+			canCreate: false
+		})
 	},
 	// Render the form itself
 	renderForm () {
@@ -161,7 +168,7 @@ const CreateForm = React.createClass({
 					{form}
 				</Modal.Body>
 				<Modal.Footer>
-					<Button color="success" type="submit" data-button-type="submit">
+					<Button color="success" type="submit" data-button-type="submit" disabled={!this.state.canCreate}>
 						Create
 					</Button>
 					<Button
