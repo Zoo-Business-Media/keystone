@@ -44,10 +44,15 @@ relationship.prototype.getProperties = function () {
 
 function expandRelatedItemData (item) {
 	if (!item || !item.id) return undefined;
-	return {
-		id: item.id,
-		name: this.refList.getDocumentName(item),
-	};
+	let properties = {};
+	for (let prop in item._doc) {
+		if (item._doc.hasOwnProperty(prop)) {
+			properties[prop] = item._doc[prop];
+		}
+	}
+	properties.id = item.id;
+	properties.name = this.refList.getDocumentName(item);
+	return properties;
 }
 
 function truthy (value) {

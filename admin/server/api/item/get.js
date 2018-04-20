@@ -17,6 +17,19 @@ module.exports = function (req, res) {
 		return res.status(401).json({ error: 'fields must be undefined, a string, or an array' });
 	}
 
+	if (req.query.expandRelationshipFields === 'true') {
+		req.query.expandRelationshipFields = true
+		req.list.relationshipFields.forEach(function (path) {
+			query.populate(path);
+		});
+	} else {
+		if (req.query.expandRelationshipFields !== 'false' && typeof(req.query.expandRelationshipFields) === 'string') {
+			query.populate(req.query.expandRelationshipFields)
+		}
+	}
+
+
+
 	query.exec(function (err, item) {
 
 		if (err) return res.status(500).json({ err: 'database error', detail: err });
@@ -114,7 +127,7 @@ module.exports = function (req, res) {
 					detail: err,
 				});
 			}
-			res.json(_.assign(req.list.getData(item, fields), {
+			res.json(_.assign(req.list.getData(item, fields, req.query.expandRelationshipFields), {
 				drilldown: drilldown,
 			}));
 		});
