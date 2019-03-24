@@ -71,7 +71,7 @@ module.exports = function IndexRoute (req, res) {
 			domain: keystone.get('ga domain'),
 		},
 		keystone: keystoneData,
-		title: keystone.get('name') || 'Keystone',
+		title: keystone.get('brand') || 'Keystone',
 	};
 
 	var cloudinaryConfig = keystone.get('cloudinary config');
