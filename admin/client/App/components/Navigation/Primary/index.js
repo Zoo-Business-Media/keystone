@@ -89,7 +89,7 @@ var PrimaryNavigation = React.createClass({
 	renderNavigation () {
 		if (!this.props.sections || !this.props.sections.length) return null;
 
-		return this.props.sections.map((section) => {
+		var ret = this.props.sections.map((section) => {
 			// Get the link and the class name
 			const href = section.lists[0].external ? section.lists[0].path : `${Keystone.adminPath}/${section.lists[0].path}`;
 			const isActive = this.props.currentSectionKey && this.props.currentSectionKey === section.key;
@@ -107,6 +107,21 @@ var PrimaryNavigation = React.createClass({
 				</PrimaryNavItem>
 			);
 		});
+
+		var createButton = (
+			<li className={"primary-navbar__item"} data-section-label={"Create Playlist"}>
+				<a
+					className="primary-navbar__link"
+					href={"https://playlistbuilder.moovmanager.com.au/"}
+					tabIndex="-1"
+					target="_blank">
+					{"Create Playlist"}
+				</a>
+			</li>
+		);
+
+		ret.push(createButton);
+		return ret;
 	},
 	render () {
 		if (!this.state.navIsVisible) return null;
