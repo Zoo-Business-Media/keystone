@@ -156,6 +156,18 @@ var EditForm = React.createClass({
 			}
 		});
 	},
+	renderAdditionalText () {
+		var list = this.props.list;
+		if (list.key == "VenueDemographic") {
+			return (
+				<div>
+					{"The system will intelligently adjust your playlist to suit the below demographic according to the time/days you’ve defined. Please note, this is applicable when using a playlist denoted as ‘AI’ in your mobile app – such as Hits and Throwbacks AI."}
+					<br/><br/>
+				</div>
+			);
+		}
+		return "";
+	},
 	renderKeyOrId () {
 		var className = 'EditForm__key-or-id';
 		var list = this.props.list;
@@ -377,6 +389,7 @@ var EditForm = React.createClass({
 						<Form layout="horizontal" component="div">
 							{this.renderNameField()}
 							{this.renderKeyOrId()}
+							{this.renderAdditionalText()}
 							{this.renderFormElements()}
 							{this.renderTrackingMeta()}
 						</Form>
