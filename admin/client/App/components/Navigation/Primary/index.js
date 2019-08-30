@@ -109,13 +109,13 @@ var PrimaryNavigation = React.createClass({
 		});
 
 		var createButton = (
-			<li className={"primary-navbar__item"} data-section-label={"Create Playlist"}>
+			<li className={"primary-navbar__item"} data-section-label={"Playlist Builder"}>
 				<a
 					className="primary-navbar__link"
 					href={"https://playlistbuilder.moovmanager.com.au/"}
 					tabIndex="-1"
 					target="_blank">
-					{"Create Playlist"}
+					{"Playlist Builder"}
 				</a>
 			</li>
 		);
