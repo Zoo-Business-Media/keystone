@@ -161,7 +161,7 @@ var EditForm = React.createClass({
 		if (list.key == "VenueDemographic") {
 			return (
 				<div>
-					{"The system will intelligently adjust your playlist to suit the below demographic according to the time/days you’ve defined. Please note, this is applicable when using a playlist denoted as ‘AI’ in your mobile app – such as Hits and Throwbacks AI."}
+					{"The system will intelligently adjust your playlist to suit the below demographic according to the time/days you’ve defined. Please note, this is applicable when using a playlist denoted as ‘AI’ in your mobile app – such as 'Hits and Throwbacks AI'."}
 					<br/><br/>
 				</div>
 			);

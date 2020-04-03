@@ -2,6 +2,9 @@
 title: KeystoneJS
 ---
 
+## IMPORTANT UPDATE
+This repo was forked and is now required for the Moov-CMS project.  It contains content, navigation and other edits that appear on the site .  It is unknown why forking this was considered necessary, instead of updating Moov-cms directly.
+
 ![KeystoneJS](http://keystonejs.com/images/logo.svg)
 ===================================
 
